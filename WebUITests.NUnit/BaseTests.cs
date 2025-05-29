@@ -5,9 +5,14 @@ using Serilog;
 using System;
 using NUnit.Framework.Interfaces;
 using WebUITests.NUnit.Utilities;
+using Allure.Net.Commons;
+using Allure.NUnit.Attributes;
+using Allure.NUnit;
 
 namespace WebUITests.NUnit
 {
+    [AllureNUnit]
+    [AllureSuite("Web UI Tests")]
     [Parallelizable(ParallelScope.All)]
     public class BaseTest
     {
@@ -23,6 +28,11 @@ namespace WebUITests.NUnit
 
             var testName = TestContext.CurrentContext.Test.Name;
             logger = LoggerConfig.ConfigureLogger(testName);
+
+            AllureLifecycle.Instance.UpdateTestCase(tc =>
+            {
+                tc.name = testName;
+            });
 
             logger.Information("=== Starting test: {TestName} ===", testName);
             logger.Debug("Browser initialized: {BrowserName}", driver.GetType().Name);
@@ -44,6 +54,8 @@ namespace WebUITests.NUnit
                 logger.Debug("Stack trace: {StackTrace}", stackTrace);
 
                 ScreenshotTaker.TakeScreenshot(driver, logger, testName);
+
+                var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
             }
             else
             {

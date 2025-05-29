@@ -5,11 +5,13 @@ using System.Threading;
 using WebUITests.NUnit.Models;
 using WebUITests.NUnit.Pages;
 using WebUITests.NUnit.Factories;
+using Allure.NUnit.Attributes;
 
 namespace WebUITests.NUnit
 {
     [TestFixture]
     [Category("UI")]
+    [AllureFeature("UI Tests")]
     public class TestCases : BaseTest
     {
         private HomePage _homePage;
@@ -26,6 +28,8 @@ namespace WebUITests.NUnit
 
         [Test]
         [Category("Navigation")]
+        [AllureStory("Navigation")]
+        [AllureTag("NUnit")]
         public void TC1_VerifyAboutEhuPage()
         {
             _homePage.GoToAboutPage();
@@ -35,6 +39,8 @@ namespace WebUITests.NUnit
 
         [Test]
         [Category("Search")]
+        [AllureStory("Search")]
+        [AllureTag("NUnit")]
         public void TC2_VerifySearchFunctionality()
         {
             _homePage.OpenSearch();
@@ -50,6 +56,8 @@ namespace WebUITests.NUnit
         [Test]
         [Category("Localization")]
         [NonParallelizable]
+        [AllureStory("Localization")]
+        [AllureTag("NUnit")]
         public void TC3_VerifyLanguageChange()
         {
             _homePage.ChangeLanguage();
@@ -63,6 +71,8 @@ namespace WebUITests.NUnit
         [TestCase("+370 68 771365")]
         [TestCase("+375 29 5781488")]
         [Category("Contact")]
+        [AllureStory("Contact Info")]
+        [AllureTag("NUnit")]
         public void TC4_VerifyContactInfo(string expectedText)
         {
             driver.Navigate().GoToUrl("https://en.ehu.lt/contact/");
@@ -71,6 +81,8 @@ namespace WebUITests.NUnit
 
         [Test]
         [Category("User")]
+        [AllureStory("User Management")]
+        [AllureTag("NUnit")]
         public void TC5_TestUserBuilder()
         {
             var user = new User.UserBuilder()
@@ -86,6 +98,8 @@ namespace WebUITests.NUnit
 
         [Test]
         [Category("User")]
+        [AllureStory("User Management")]
+        [AllureTag("NUnit")]
         public void TC6_TestUserFactory()
         {
             var adminUser = UserFactory.CreateAdminUser();
