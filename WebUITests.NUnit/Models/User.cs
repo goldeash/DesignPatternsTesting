@@ -2,6 +2,7 @@
 {
     public class User
     {
+        public string Id { get; private set; }
         public string Username { get; private set; }
         public string Password { get; private set; }
         public string Email { get; private set; }
@@ -12,6 +13,12 @@
         public class UserBuilder
         {
             private readonly User _user = new User();
+
+            public UserBuilder WithId(string id)
+            {
+                _user.Id = id;
+                return this;
+            }
 
             public UserBuilder WithUsername(string username)
             {
